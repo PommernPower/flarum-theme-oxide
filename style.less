@@ -1,0 +1,1242 @@
+/*
+
+    Autor:   Sebastian Sycz (YouHosi)
+    Version: 1.0.0
+    Contact: youhosi99@gmial.com
+    Forum:   https://forum.oxidepolska.pl
+    Github:  https://github.com/youhosi
+    
+*/
+
+/*
+
+    Style support:
+
+    - Nightmode
+    - Markdown Editor
+    - Links
+    - Likes
+    - Emojipicker 
+
+    Instruction
+
+    Fonts:
+        dfont = Default font Flarum
+        cfont = Code font
+
+    Prefixs:
+        w = whitestyle
+        d = darkstyle 
+
+    Colors:
+        p = primary
+        s = secondary
+        u = unread
+*/
+
+// #region Mixins
+
+.box-shadow (@shadow) {
+	-webkit-box-shadow: @shadow;
+	-moz-box-shadow:    @shadow;
+	box-shadow:         @shadow;
+}
+.border-radius (@radius) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+    border-radius:         @radius;
+}
+.transition (@transition) {
+	-webkit-transition: @transition;  
+	-moz-transition:    @transition;
+	-ms-transition:     @transition; 
+	-o-transition:      @transition;  
+}
+.background-size (@size) {
+    -webkit-background-size: @size;
+    -moz-background-size:    @size;
+    background-size:         @size;
+}
+.bgrgba (@rgba) {
+    background: rgba(0,0,0, @rgba);
+}
+.bgcolor (@color) {
+    background: @color;
+}
+.brgba (@size, @rgba) {
+    border: @size solid rgba(0,0,0, @rgba);
+}
+.brcolor (@size, @color) {
+    border: @size solid @color;
+}
+
+// #endregion
+
+// #region General
+
+    // #region Fonts / Colors / Shadows
+    
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+    @dfont: "Roboto", Helvetica, Arial, sans-serif;
+    @cfont: "Courier New", Helvetica, Arial, sans-serif;
+
+    @shadow1: rgba(0,0,0, .05); 
+    @shadow2: rgba(0,0,0, .1);
+    @shadow3: rgba(0,0,0, .2);
+    @shadow4: rgba(0,0,0, .4);
+
+    // whitestyle
+    @wscolor: #585858;
+
+    @wshcolor: @wscolor + #000000;
+
+    // darkstyle
+    @dscolor: #b7b7b7;
+    @ducolor: #cecece;
+
+    @dshcolor: #d1d1d1;
+
+    // #endregion
+
+button {
+    .transition(all .1s linear);
+}
+.TagTile.colored {
+    overflow: hidden;
+
+    a {
+        overflow: hidden;
+    }
+}
+.scrolled.App:before {
+    .box-shadow(0 1px 3px @shadow3);
+}
+.Header-logo {
+    max-height: 38px;
+}
+.Header-primary > .Header-controls > li > a,
+.SessionDropdown .Button,
+.item-signUp .Button,
+.item-logIn .Button {
+    font-weight: bold;
+
+    &:hover {
+        color: @wshcolor;
+    }
+}
+.SessionDropdown,
+.Post-controls,
+.DiscussionListItem-controls {
+    &.open {
+        .Button {
+            color: @wshcolor;
+        }
+    }
+}
+.Modal-footer a {
+    color: @wscolor;
+}
+.sideNav .Dropdown--select .Dropdown-menu > .Dropdown-separator {
+    background-color: rgb(237, 237, 237) !important;
+}
+.sideNav .TagLinkButton .TagIcon {
+    .box-shadow(0 1px 1px @shadow3);
+    .border-radius(50%);
+    height: 18px;
+    font-size: 14px !important;
+}
+.Post-actions {
+    .item-like .Button--link,
+    .item-reply .Button--link,
+    .Post-likedBy a {
+        .transition(all .08s linear);
+        color: @wscolor;
+
+        &:hover {
+            color: @wshcolor;
+            border-color: @wshcolor;
+        }
+    } 
+}
+.Post-body {
+    a {
+        .transition(all .08s linear);
+        color: @wscolor;
+
+        &:hover {
+            color: @wshcolor;
+            border-color: @wshcolor;
+        }
+    }
+    hr {
+        border-top: 1px solid #ededed;
+    }
+    code, 
+    pre, 
+    blockquote,
+    .UserMention,
+    .PostMention {
+        .box-shadow(0 1px 1px @shadow3);
+    }
+    pre {
+        border-left: 3px solid @shadow4;
+        padding: 15px;
+
+        code {
+            .box-shadow(none);
+            font-family: @cfont;
+            margin-bottom: 0;
+        }
+        &::-webkit-scrollbar {
+            height: 14px;
+            width: 14px;
+        }
+        &::-webkit-scrollbar-thumb {
+            .border-radius(16px);
+            background: @shadow3;
+            border: 4px solid #f7f7f7;
+        }
+    }
+    blockquote {
+        border: none !important;
+        padding: 10px;
+    }
+    code {
+        margin-bottom: 2px;
+    }
+}
+.Post-actions,
+.Post-footer {
+    a,
+    .item-like .Button--link,
+    .item-reply .Button--link,
+    .Post-likedBy a {
+        .transition(all .08s linear);
+        color: #797979;
+
+        &:hover {
+            color: @wshcolor;
+        }
+    }
+}
+.DiscussionHero-badges .Badge {
+    .brcolor(1px, #FFFFFF);
+    .box-shadow(none);
+    margin-left: 5px;
+}
+.UserCard-badges .Badge {
+    margin-right: 5px;
+}
+.DiscussionHero .DiscussionHero-title {
+    text-shadow: 0 1px 2px @shadow3;
+}
+.item-meta time::before,
+.item-edited .PostEdited::before {
+    font-family: FontAwesome;
+    margin-right: 2px;
+}
+.item-meta time::before {
+    content: "\f017";
+}
+.item-edited .PostEdited::before {
+    content: "\f040";
+}
+.Dropdown.PostMeta time, 
+.PostEdited {
+    font-size: 11px;
+}
+.PostMeta-permalink {
+    padding: 10px;
+}
+.fa-file-o::before {
+    content: "\f15b" !important;
+}
+.UserBio {
+    margin: -10px 0 10px;
+}
+.cc-window.cc-banner {
+    padding: 10px 20px;
+}
+.cc-revoke, .cc-window {
+    font-size: 14px;
+}
+.cc-banner .cc-btn:last-child {
+    .border-radius(4px);
+    .transition(background .1s linear);
+    .brgba(1px, .2);
+    background: rgba(0,0,0, .1) !important;
+}
+textarea.FormControl {
+    padding: 10px;
+}
+.Post-body .ButtonGroup {
+    margin-bottom: 1em;
+}
+.Dropdown-toggle.Button,
+.Button.Button--icon.hasIcon,
+.item-changePassword .Button,
+.item-changeEmail .Button,
+.EnhancedTextEditor-toolbar .Button,
+.item-flagrow-upload .Button,
+.SubscriptionMenu .Button,
+.App-primaryControl .Button {
+    &:active,
+    &.active {
+        .box-shadow(inset 0 1px 1px @shadow2);
+    }
+}
+.Scrubber {
+    .Scrubber-first,
+    .Scrubber-last {
+
+        &:hover {
+            color: @wshcolor;
+        }
+    }
+}
+.open > .Button.Dropdown-toggle {
+    .box-shadow(inset 0 1px 1px @shadow2);
+}
+.WelcomeHero {
+    a {
+        color: @wscolor;
+    }
+    .Hero-close.Button {
+        color: @wshcolor;
+        
+        &:active,
+        &:hover,
+        &.active {
+            color: @wshcolor;
+            .box-shadow(none) !important;
+        }
+    }
+}
+.NotificationList-content,
+.DiscussionPage-list {
+    &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+        background: #FFFFFF;
+    }
+    &::-webkit-scrollbar-thumb {
+        .brcolor(3px, #ffffff);
+        .border-radius(16px);
+        background: @shadow4;
+    }
+}
+.UserBio.editing {
+    .FormControl:focus,
+    .FormControl.focus {
+        &::-webkit-scrollbar,
+        ::-webkit-scrollbar-thumb {
+            width: 0;
+            height: 0;
+        }
+    }
+}
+.dropdown-menu {
+    z-index: 2;
+}
+.Alert--error {
+    .Button--icon {
+        .Button-icon {
+            color: #FFFFFF;
+        }
+    }
+}
+i.icon.fa.fa-times.Button-icon {
+    font-size: 14px !important;
+}
+mark {
+    padding: 1px 4px;
+    font-weight: bold;
+}
+.FlagPostModal {
+    .Form {
+        .Form-group {
+            textarea {
+                @width: ~"calc(100% + 20px)";
+    
+                margin: 5px 0px 0px -20px;
+                min-width: @width;
+                max-width: @width;
+
+                min-height: 180px;
+
+            }
+        }
+    }
+}
+.DiscussionListItem {
+    .DiscussionListItem-relevantPosts {
+        .PostPreview {
+            background: @shadow1;
+            border-bottom: 1px solid @shadow2;
+        
+            &:hover {
+                background: @shadow1;
+            }
+            &:last-child {
+                .border-radius(0 0 4px 4px);
+                border-bottom: 0 !important;
+            }
+        }
+    }
+    &:hover {
+        .DiscussionListItem-relevantPosts {
+            .PostPreview {
+                border-color: @shadow2;
+            }
+        }
+        
+    }
+}
+.UserCard-profile {
+    .UserCard-info {
+        .item-joined:before,
+        .item-money:before {
+            font-family: FontAwesome;
+            margin-right: 3px;
+        }
+        .item-joined:before {
+            content: '\f2ce';
+        }
+        .item-money:before {
+            content: '\f20e';
+        }
+    }
+}
+.PostMention-preview,
+.PostUser .UserCard.in {
+    z-index: 1;
+}
+// Editor
+.Composer {
+    .ComposerBody-header {
+        h3, 
+        input, 
+        a {
+            font-weight: bold !important;
+        }
+        h3, 
+        input {
+            font-size: 14px !important;
+        }
+    }
+    & .ComposerBody-editor {
+        & .EnhancedTextEditor-toolbar {
+
+            .Button.hasIcon {
+                width: 28px;
+                height: 28px;
+
+
+                i {
+                    margin-right: 0;
+                }
+            }
+            .Dropdown-separator {
+                margin: 0px 5px -6px 0;
+                width: 1px;
+                height: 19px;
+                background: @shadow2;
+            }
+        }
+        & .FormControl {
+            &::-webkit-scrollbar,
+            &::-webkit-scrollbar-thumb {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+            &:focus {
+                color: #000000;
+            }
+        }
+    } 
+}
+.emojionearea {
+    .emojionearea-picker {
+        .emojionearea-scroll-area {
+
+            h1 {
+                padding: 7px;
+                font-weight: bold;
+            }
+            .emojibtn {
+                margin: 1px auto;
+                
+                &:hover {
+                    background-color: transparent;
+
+                    & > img {
+                        width: 28px;
+                        height: 28px;
+                        margin: -2px;
+                    }
+                }
+            }
+            &::-webkit-scrollbar,
+            ::-webkit-scrollbar-thumb {
+                width: 0;
+                height: 0;
+                display: none;
+            }
+        }
+        .emojionearea-wrapper {
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+//
+
+@media (min-width: 768px) {
+    body,
+    .ModalManager {
+        &::-webkit-scrollbar {
+            width: 14px;
+            height: 14px;
+        }
+        &::-webkit-scrollbar-thumb {
+            .border-radius(16px);
+        }
+    }
+    body {
+        font-family: @dfont !important;
+        letter-spacing: 0.3px;
+    
+        &::-webkit-scrollbar {
+            .bgrgba(.2);
+        }
+        &::-webkit-scrollbar-thumb {
+            .brgba(3px, .2);
+            background: #FFFFFF;
+        }
+    }
+    .ModalManager {
+    
+        &::-webkit-scrollbar {
+            .bgrgba(.2);
+        }
+        &::-webkit-scrollbar-thumb {
+            .brcolor(3px, #737373);
+            background: #FFFFFF;
+        }
+    }
+    .Search  {
+        .Search-input {
+            &:before {
+                .border-radius(4px 0 0 4px);
+                background: #797979;
+                color: #FFFFFF;
+                line-height: 1.6;
+            }
+            .FormControl {
+                padding-left: 45px;
+            }
+        }
+    }
+    .sideNav .Dropdown--select .Dropdown-menu > li > a {
+        font-weight: bold;
+
+        &:hover {
+            color: @wshcolor;
+        }
+    }
+    .Header-secondary .Header-controls > li {
+        margin-right: 5px;
+    }
+    .EventPost-icon {
+        width: 50px;
+    }
+    .Scrubber-scrollbar {
+        margin: 8px 4px !important;
+    }
+    .Scrubber a {
+        margin: 0;
+    }
+    .DiscussionListItem {
+        margin-left: 0;
+        margin-right: 0;
+
+        .DiscussionListItem-controls {
+            top: 13px;
+            right: 13px;
+        } 
+    }
+    .Modal-content {
+        .box-shadow(0 1px 5px @shadow2);
+
+        .App-backControl {
+            button {
+                .box-shadow(none) !important;
+
+                &:hover,
+                &:active {
+                    color: @wshcolor;
+                }
+            }
+        }
+    }
+    .TagDiscussionModal {
+        .TagDiscussionModal-form {
+            .Button--primary {
+                padding: 10px 20px;
+            }
+            .FormControl {
+
+                &.TagsInput {
+                    padding: 1px 8px;
+                }
+            }
+        }
+        .Modal-footer {
+            .SelectTagList {
+                &::-webkit-scrollbar {
+                    width: 12px;
+                    height: 12px;
+                    background: #FFF;
+                }
+                &::-webkit-scrollbar-thumb {
+                    .border-radius(16px);
+                    background: #cccccc;
+                    border: 3px solid #FFF;
+                }
+
+                .TagIcon {
+                    .border-radius(50%);
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+    // Editor 
+    .Composer {
+        .box-shadow(0 0 5px @shadow4);
+
+        &.normal {
+            & .Composer-content {
+                & .ComposerBody-header {
+                    margin: -2px 0 14px;
+                }
+            }
+            .ComposerBody-editor {
+                & .TextEditor-controls {
+                    border-top: 1px solid @shadow1;
+                    background: @shadow1;
+                }
+                & .Composer-footer {
+                    .item-preview,
+                    .item-clarkwinkelmann-emojionearea,
+                    .item-flagrow-upload {
+                        & > .Button {
+                            background: transparent;
+
+                            &:hover,
+                            &:active,
+                            &:focus,
+                            &.active {
+                                color: @wshcolor;
+                            }
+                            &:active {
+                                .box-shadow(none) !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.minimized {
+            & .Composer-controls {
+                top: 4px !important;
+            }
+        }
+        &.fullScreen {
+            & .TextEditor-controls {
+                padding: 0 0 20px !important;
+                margin: 0 !important;
+            }
+            & .Composer-content {
+                padding: 20px 0 0;
+            }
+        }
+        & .Composer-controls {
+            top: 6px !important;
+
+            .Button {
+                &:hover {
+                    color: @wshcolor;
+                }
+                &:active,
+                &:focus {
+                    .box-shadow(none) !important;
+                }
+            }
+        }
+        & .Composer-content {
+            & .ComposerBody-header {
+                .FormControl {
+                    letter-spacing: 0.4px;
+                    outline: none;
+                    width: 400px;
+                }
+            }
+        }
+        & .ComposerBody-editor {
+            & .EnhancedTextEditor-toolbar {
+                padding: 10px 105px;
+                margin: 0 -20px 0 -105px;
+                border-bottom: 1px solid @shadow1;
+            }
+            & .FormControl {
+                .transition(color .2s linear);
+                box-sizing: border-box;
+                padding: 5px 0;
+                color: rgba(0,0,0, .7);
+
+                &:focus {
+                    color: #000000;
+                }
+            }
+            & .Composer-footer {
+                padding: 10px 10px 15px;
+
+                .item-submit {
+                    & > .Button {
+                        text-shadow: 0 1px 1px @shadow3;
+                        box-shadow: 0 1px 3px @shadow2;
+                    }
+                }
+            }
+        }
+    }
+    //
+}
+@media (max-width: 768px) {
+    .App {
+        padding-bottom: 0;
+    }
+    .App-content {
+        padding-bottom: 20px;
+    }
+    .Dropdown {
+        .Dropdown-menu {
+            padding-bottom: 0 !important;
+            z-index: 9999;
+        }
+    }
+    .PostUser-badges {
+        left: 18px;
+    }
+    .PostUser {
+        .username {
+            margin-left: 15px;
+        }
+        .UserOnline {
+            position: relative;
+            top: 0;
+            left: 52px;
+        }
+    }
+
+    // Editor
+    .Composer {
+        &.normal {
+            & .ComposerBody-header {
+                padding: 1px 0 0;
+
+                .item-tags {
+                    margin-top: 4px;
+                }
+            }
+            & .ComposerBody-editor {
+                padding: 0;
+
+                & .EnhancedTextEditor-toolbar {
+                    padding: 10px 0;
+                    text-align: center;
+
+                    li {
+                        margin-right: 5px;
+
+                        &:last-child {
+                            margin: 0 !important;
+                        }
+                    }
+                }
+                & .TextEditor-controls {
+                    border-bottom: 1px solid @shadow1;
+                    background: @shadow1;
+
+                    &:last-child {
+                        padding: 10px;
+                        border-bottom: 0;
+                        border-top: 1px solid @shadow1;
+
+                        & .Button--icon {
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        &.minimized {
+            & .ComposerBody-header {
+                & > li {
+                    padding: 12px 20px;
+                }
+            }
+            & .Composer-controls {
+                top: 4px !important;
+            }
+        }
+    }
+    //
+}
+@media (max-width: 991px) and (min-width: 768px) {
+    .Header-secondary .Search:not(.active) {
+        .Search-input::before {
+            border-radius: 4px !important;
+        }
+        input {
+            padding-left: 0;
+            padding-right: 32px !important;
+        }
+    }
+}
+@media (min-width: 992px) {
+    .sideNavOffset {
+        margin-left: 220px;
+    }
+}
+// #endregion
+
+// #region dark
+
+
+body.dark,
+.dark .ModalManager {
+    &::-webkit-scrollbar {
+        .bgcolor(#000000);
+    }
+    &::-webkit-scrollbar-thumb {
+        .brcolor(3px, #000);
+        background: #1a1a1a;
+    }
+}
+
+.dark 
+{
+
+    .Header-title {
+        a {
+            .background-size(cover);
+            background-image: url(darkmodelogo.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 38px;
+            width: 100px;
+            display: inline-block;
+
+            img {
+                display: none !important;
+            }
+        }
+    }
+    .WelcomeHero {
+        a {
+            color: @dscolor;
+        }
+        .Hero-close.Button {
+            color: @dscolor;
+            
+            &:active,
+            &:hover,
+            &.active {
+                color: @dshcolor;
+                .box-shadow(none) !important;
+            }
+        }
+    }
+    .sideNav .Dropdown--select .Dropdown-menu > .Dropdown-separator {
+        background-color: rgb(49, 49, 49) !important;
+    }
+    .NotificationList-content,
+    .DiscussionPage-list,
+    .TagDiscussionModal .SelectTagList {
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background: #1a1a1a;
+        }
+        &::-webkit-scrollbar-thumb {
+            .brcolor(3px, #1a1a1a);
+            background: @shadow4;
+        }
+    }
+    .Header-primary > .Header-controls > li > a,
+    .sideNav .Dropdown--select .Dropdown-menu > li > a,
+    .SessionDropdown .Button,
+    .item-signUp .Button,
+    .item-logIn .Button {
+        &:hover {
+            color: @dscolor;
+        }
+    }
+    .SessionDropdown,
+    .Post-controls,
+    .DiscussionListItem-controls,
+    .NotificationsDropdown {
+        &.open {
+            .Button {
+                color: @dscolor;
+            }
+        }
+    }
+    .Button,
+    .Dropdown-toggle,
+    .SessionDropdown .Button,
+    .NotificationsDropdown .Button {
+        &:active,
+        &.active {
+            background: #141414;
+        }
+    }
+    .Button:active,
+    .Button.active,
+    .open>.Dropdown-toggle.Button {
+        background: #141414;
+    }
+    .App-primaryControl {
+        .Dropdown-toggle {
+            &:active {
+                background: #787878 !important;
+            }
+        }
+        &.open {
+            .Dropdown-toggle {
+                background: #787878 !important;
+            } 
+        }
+    }
+    .SubscriptionMenu {
+        .Button {
+            &:hover,
+            &:active,
+            &:focus,
+            &.open {
+                background: #272727 !important;
+            }
+        }
+    }
+    .DiscussionListItem-info {
+        .item-terminalPost {
+            color: #7c7c7c;
+        }
+    }
+    .PostMeta {
+        .Dropdown-toggle {
+            background: transparent !important;
+        }
+    }
+    .Search-input:before {
+        color: #1d1b1a;
+    }
+    .unread  {
+        .DiscussionListItem-title, 
+        .DiscussionListItem-count {
+            color: @ducolor !important;
+        }
+    }
+    .Post-actions {
+        .item-like .Button--link,
+        .item-reply .Button--link,
+        .Post-likedBy a {
+            .transition(all .08s linear);
+            color: @dscolor;
+            background: transparent !important;
+
+            &:hover {
+                color: @dshcolor;
+                border-color: @dshcolor;
+            }
+        } 
+    }
+    .Post-footer {
+        .Post-mentionedBy-summary > a {
+            color: #808080 !important;
+        }
+    }
+    .Post-body {
+        @code: #808080;
+
+        code, 
+        pre, 
+        blockquote,
+        .UserMention,
+        .PostMention {
+            color: @code !important;
+            background: rgba(33, 33, 33, 1) !important;
+            box-shadow: 0 1px 1px @shadow3;
+        }
+        .PostMention {
+            background: #3c3c3c !important;
+            text-shadow: 0 1px 1px @shadow2;
+        }
+        a {
+            .transition(all .08s linear);
+            color: @dscolor;
+            border-color: @dscolor;
+
+            &:hover {
+                color: @dshcolor;
+                border-color: @dshcolor;
+            }
+        }
+        hr {
+            border-top: 1px solid #383838;
+        }
+        pre {
+            border-left: 3px solid @shadow4;
+    
+            code {
+                .box-shadow(none);
+                font-family: @cfont;
+                margin-bottom: 0;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: @shadow3;
+                border: 4px solid #212121;
+            }
+        }
+        blockquote {
+            border: none !important;
+            padding: 10px;
+        }
+    }
+    .DiscussionHero-items {
+        .TagLabel {
+            .TagLabel-text {
+                color: #FFFFFF;
+            }
+        }
+    }
+    .DiscussionTaggedPost,
+    .DiscussionRenamedPost {
+        .EventPost-user {
+            color: #808080;
+        }
+    }
+    .fakeText,
+    .Avatar {
+        background: rgba(0,0,0, .3);
+    }
+    .Post-controls .Button,
+    .DiscussionListItem-controls .Button {
+        background: transparent;
+
+        &:active,
+        &.active {
+            background: #141414;
+        }
+    }
+    .Scrubber {
+        .Scrubber-first,
+        .Scrubber-last {
+            &:hover {
+                color: @dscolor;
+            }
+        }
+    }
+    .FlagPostModal {
+        .checkbox {
+            strong,
+            a {
+                color: @dscolor;
+            }
+        }
+    }
+    .UserCard-profile {
+        .UserCard-identity {
+            .username {
+                color: #FFF;
+                border-color: #FFF;
+            }
+        }
+        .UserBio.editing {
+            .FormControl:focus,
+            .FormControl.focus {
+                background: @shadow2;
+                height: auto;
+            }
+        }
+        .UserBio-content {
+            a {
+                color: #FFFFFF;
+            }
+        }
+    }
+    .UserCard-controls,
+    .Post-controls,
+    .IndexPage-toolbar {
+        .Button {
+            background: rgba(0,0,0,0.1) !important;
+            color: @dscolor;
+
+            &:hover,
+            &:focus,
+            &:active {
+                background: rgba(0,0,0,0.1) !important;
+            }
+            .active {
+                background: transparent;
+            }
+        }
+    }
+    .PostsUserPage-discussion a,
+    .EventPost-info .EventPost-user a {
+        color: #808080 !important;
+    }
+    .AvatarEditor a {
+        color: #FFF;
+    }
+    .Composer {
+        .ComposerBody-header {
+            h3, 
+            input, 
+            a {
+                color: #b7b7b7;
+            }
+        }
+        & .ComposerBody-editor {
+            & .EnhancedTextEditor-toolbar {
+                .Dropdown-separator {
+                    background: @shadow3;
+                }
+            }
+        }
+        &.normal {
+            &.visable {
+                opacity: .99;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .emojionearea {
+        .emojionearea-picker {
+            background: #1a1a1a;
+
+            .emojionearea-filters {
+                background: @shadow2;
+
+                .emojionearea-filter.active {
+                    background: rgba(255,255,255, .1);
+                }
+            }
+            .emojionearea-scroll-area {
+                h1 {
+                    background: rgba(255,255,255, .1);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .dark {
+        .Composer {
+            .ComposerBody-editor {
+                & .Composer-footer {
+                    .item-preview,
+                    .item-clarkwinkelmann-emojionearea,
+                    .item-flagrow-upload {
+                        & > .Button {
+                            background: transparent;
+
+                            &:hover,
+                            &:active,
+                            &:focus,
+                            &.active {
+                                color: @dshcolor;
+                            }
+                            &:active {
+                                .box-shadow(none) !important;
+                            }
+                        }
+                    }
+                }
+            }
+            & .Composer-controls {
+                .Button {
+                    &:hover {
+                        color: @dshcolor;
+                    }
+                    &:active,
+                    &:focus {
+                        .box-shadow(none) !important;
+                        background: transparent !important;
+                    }
+                }
+            }
+            & .ComposerBody-editor {
+                & .FormControl {
+                    color: rgba(255,255,255, .7);
+    
+                    &:focus {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+            &.fullScreen {
+                & .TextEditor-controls {
+                    padding: 10px 0 !important;
+                    margin: 0 !important;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .dark {
+        .Dropdown .Dropdown-menu>li>a, .Dropdown .Dropdown-menu>li>button {
+            background: #1a1a1a;
+        }
+        .dropdown-backdrop,
+        .drawer-backdrop {
+            background: rgba(0,0,0, .5);
+        }
+        .DiscussionPage-nav {
+            border-bottom: 1px solid rgba(255,255,255, .1);
+        }
+        .DiscussionListItem-count {
+            background: rgba(0,0,0, .2);
+        }
+        .ComposerBody-header {
+            li {
+                border-bottom: 1px solid rgba(255,255,255, .15);
+            }
+            h3 {
+                a {
+                    color: @wshcolor !important;
+                }
+            }
+        }
+        .Composer:not(.minimized):before {
+            background: rgba(0,0,0, .3);
+            border-bottom: none;
+        }
+        .DiscussionListItem-content:active {
+            background: rgba(255,255,255, .05);
+        }
+    }
+}
+
+// #endregion
